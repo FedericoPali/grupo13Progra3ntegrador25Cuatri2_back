@@ -15,7 +15,7 @@ import cors from "cors";
 import { loggerUrl } from "./src/api/middlewares/middlewares.js";
 
 // importamos las rutas de producto
-import { productRoutes } from "./src/api/routes/index.js";
+import { productRoutes, salesRoutes } from "./src/api/routes/index.js";
 
 /* =================
     Middlewares

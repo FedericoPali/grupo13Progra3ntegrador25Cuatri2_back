@@ -3,7 +3,7 @@ import {Router } from "express";
 
 const router = Router();
 
-import connection from "../database/db";
+import connection from "../database/db.js";
 
 router.get("/", async (req, res) => {
 
@@ -58,3 +58,5 @@ router.post("/", async (req, res) => {
         })
     }
 })
+
+export default router;
