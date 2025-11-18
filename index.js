@@ -34,6 +34,8 @@ app.use(loggerUrl); // utilizamos el middleware importado
 
 app.use("/api/products", productRoutes);
 
+app.use("/api/sales", salesRoutes);
+
 app.listen(PORT, () =>{
     console.log(`Servidor corriendo en el puerto ${PORT}`)
 });
