@@ -29,9 +29,9 @@ router.post("/", async (req, res) => {
 
         // preparamos los productos para insertarlos en la base de datos ventas_productos
 
-        const dataProductos = productos.map(prod => [idVenta, prod.id_producto]);
+        const dataProductos = productos.map(prod => [idVenta, prod.id_producto, prod.cantidad]);
 
-        const sqlVentaProducto = "INSERT INTO ventas_productos (id_ventas, id_productos) VALUES ?" // se pone solo un ? pq queremos insertar muchas filas a la vez
+        const sqlVentaProducto = "INSERT INTO ventas_productos (id_ventas, id_productos, cantidad) VALUES ?" // se pone solo un ? pq queremos insertar muchas filas a la vez
 
         const [resultVentaProducto] = await connection.query(sqlVentaProducto, [dataProductos]);
 
