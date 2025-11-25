@@ -1,10 +1,8 @@
-
-import connection from "../database/db.js" // import coneccion base de datos
+import ProductModels from "../models/products.models.js";
 
 export const getAllProducts = async (req, res) =>{
     try {
-        const sql = `SELECT * FROM products`;
-        const [rows] = await connection.query(sql);
+        const [rows] = await ProductModels.selectAllProducts()
         console.log(rows)        
  
         res.status(200).json({
@@ -25,8 +23,7 @@ export const getProductById = async (req, res) => {
     try {
         let { id } = req.params // permite obtener el valor numerico dsp de products
 
-        let sql = `SELECT * FROM products WHERE id_producto = ?`;
-        const [rows] = await connection.query(sql, [id]); // el id reemplaza el "?"
+        const [rows] = await ProductModels.selectProductById(id); // el id reemplaza el "?"
         
         // optimizacion 2: comprobar que exista un producto con el id que se consulte
         if(rows.length === 0) {
@@ -62,11 +59,8 @@ export const createProduct = async (req, res) => {
             // utilizamos el return para que el endpont termine y el usuario reciba esta respuesta
         }
 
-        // los placeholders ?, sirven para evitar inyecciones 
-        let sql = "INSERT INTO products (nombre, precio, tipo, ruta_img) VALUES (?, ?, ?, ?)";
-
         // se le envian los valores a las BBDD
-        let [rows] = await connection.query(sql, [nombre, precio, tipo, ruta_img]);
+        let [rows] = await ProductModels.insertProduct(nombre, precio, tipo, ruta_img);
         
         // devolvemos la respuesta 201 (created)
         res.status(201).json({
@@ -96,13 +90,8 @@ export const modifyProduct = async (req, res) => {
             });
         }
 
-        let sql = `
-            UPDATE products
-            SET nombre = ?, ruta_img = ?, precio = ?, tipo = ?
-            WHERE id_producto = ?
-        `;
 
-        let [result] = await connection.query(sql, [nombre, ruta_img, precio, tipo, id_producto]);
+        let [result] = await ProductModels.updateProduct(id_producto, nombre, precio, tipo, ruta_img, activo );
         console.log(result);
 
         // Optimizacion 2: Testeamos que se actualizara este producto
@@ -131,13 +120,7 @@ export const removeProduct = async (req, res) => {
     try {
         let { id } = req.params;
 
-        // Opcion 1: Borrado normal
-        let sql = "DELETE FROM products WHERE id_producto = ?";
-
-        // Opcion 2: Baja logica
-        // let sql2 = "UPDATE products set active = 0 WHERE id_producto = ?";
-
-        let [result] = await connection.query(sql, [id]);
+        let [result] = await ProductModels.deleteProduct(id);
         console.log(result);
         // affectedRows: 1 -> Nos indica que hubo una fila que fue afectada
 
