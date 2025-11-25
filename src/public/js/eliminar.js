@@ -70,11 +70,11 @@ async function eliminarProducto(id) {
 }
 
 function mostrarError(message){
-    listaProducto.innerHTML = 
+    listaProducto.innerHTML = `
     <li class="mensaje-error">
         <p>
             Error: ${message}
         </p>
     </li>
-    ;
+    `;
 }
