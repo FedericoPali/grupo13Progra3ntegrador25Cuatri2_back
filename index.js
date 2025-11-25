@@ -17,6 +17,8 @@ import { loggerUrl } from "./src/api/middlewares/middlewares.js";
 // importamos las rutas de producto
 import { productRoutes, salesRoutes } from "./src/api/routes/index.js";
 
+import { __dirname, join } from "./src/api/utils/index.js";
+
 /* =================
     Middlewares
 ==================*/
