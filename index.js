@@ -29,6 +29,10 @@ app.use(express.json());
 
 app.use(loggerUrl); // utilizamos el middleware importado
 
+// middleware para servir archivos estaticos (css, img, js)
+
+app.use(express.static(join(__dirname, "/src/public"))) // middleware para servir archivos
+
 
 /* =================
     Rutas
