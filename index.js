@@ -15,7 +15,7 @@ import cors from "cors";
 import { loggerUrl } from "./src/api/middlewares/middlewares.js";
 
 // importamos las rutas de producto
-import { productRoutes } from "./src/api/routes/index.js";
+import { productRoutes, salesRoutes } from "./src/api/routes/index.js";
 
 /* =================
     Middlewares
@@ -33,6 +33,8 @@ app.use(loggerUrl); // utilizamos el middleware importado
 ==================*/
 
 app.use("/api/products", productRoutes);
+
+app.use("/api/sales", salesRoutes);
 
 app.listen(PORT, () =>{
     console.log(`Servidor corriendo en el puerto ${PORT}`)

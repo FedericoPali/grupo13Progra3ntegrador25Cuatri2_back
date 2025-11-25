@@ -1,0 +1,62 @@
+
+import {Router } from "express";
+
+const router = Router();
+
+import connection from "../database/db.js";
+
+router.get("/", async (req, res) => {
+
+})
+
+router.post("/", async (req, res) => {
+    const {nombre_usuario, precio_total, productos} = req.body;
+
+    if(!nombre_usuario || !precio_total || !productos || productos.length === 0){
+        return res.status(400).json({
+            message: "Faltan parametros"
+        })
+    }
+
+    try{
+        const sqlVenta = "INSERT INTO ventas (nombre_usuario, fecha, precio_total) VALUES (?,NOW(),?)"
+
+        const [resultVenta] = await connection.query(sqlVenta, [nombre_usuario, precio_total])
+
+        const idVenta = resultVenta.insertId; // conseguimos el id de la venta para luego en la tabla ventas_productos meter cada producto con el id de la venta
+        
+        console.log("Venta creada con ID: ", idVenta);
+
+        // preparamos los productos para insertarlos en la base de datos ventas_productos
+
+        const dataProductos = productos.map(prod => [idVenta, prod.id_producto, prod.cantidad]);
+
+        const sqlVentaProducto = "INSERT INTO ventas_productos (id_ventas, id_productos, cantidad) VALUES ?" // se pone solo un ? pq queremos insertar muchas filas a la vez
+
+        const [resultVentaProducto] = await connection.query(sqlVentaProducto, [dataProductos]);
+
+        if(resultVentaProducto.affectedRows === 0 || resultVentaProducto.affectedRows !== productos.length){
+            // en caso de que no se hayan podido insertar todos los productos vendidos hacemos un return avisandole al cliente
+            return res.status(500).json({
+                message: "Advertencia: La venta se generó, pero no se pudieron guardar todos los productos.",
+                id_venta: idVenta,
+                productos_esperados: productos.length,
+                productos_guardados: resultVentaProducto.affectedRows
+            });
+            
+        }
+
+        res.status(201).json({
+            message: "Venta registrada con exito",
+            id_venta: idVenta
+        })
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            error: "Error interno del servidor"
+        })
+    }
+})
+
+export default router;
