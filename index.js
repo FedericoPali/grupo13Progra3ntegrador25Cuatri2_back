@@ -15,7 +15,7 @@ import cors from "cors";
 import { loggerUrl } from "./src/api/middlewares/middlewares.js";
 
 // importamos las rutas de producto
-import { productRoutes, salesRoutes } from "./src/api/routes/index.js";
+import { productRoutes, salesRoutes, viewRoutes } from "./src/api/routes/index.js";
 
 import { __dirname, join } from "./src/api/utils/index.js";
 
@@ -41,6 +41,8 @@ app.use(express.static(join(__dirname, "/src/public"))) // middleware para servi
 app.use("/api/products", productRoutes);
 
 app.use("/api/sales", salesRoutes);
+
+app.use("/", viewRoutes);
 
 app.listen(PORT, () =>{
     console.log(`Servidor corriendo en el puerto ${PORT}`)
