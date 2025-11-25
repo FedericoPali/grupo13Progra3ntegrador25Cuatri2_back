@@ -9,7 +9,7 @@ form.addEventListener("submit", async (event) => {
     let data = Object.fromEntries(formData.entries());
 
     try{
-        let response = await fetch(`${url}/ai/products`, {
+        let response = await fetch(`${url}/api/products`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

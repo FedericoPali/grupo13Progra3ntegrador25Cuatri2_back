@@ -84,14 +84,14 @@ export const modifyProduct = async (req, res) => {
         let { id_producto, nombre, precio, tipo, ruta_img, activo } = req.body;
         
         // Optimizacion 1: Validacion basica de datos
-        if(!id_producto || !nombre || !precio || !tipo || !activo) {
+        if(!id_producto || !nombre || !precio || !tipo || activo === undefined) {
             return res.status(400).json({
                 message: "Faltan campos requeridos"
             });
         }
 
 
-        let [result] = await ProductModels.updateProduct(id_producto, nombre, precio, tipo, ruta_img, activo );
+        let [result] = await ProductModels.updateProduct(nombre, ruta_img, precio, tipo, activo, id_producto);
         console.log(result);
 
         // Optimizacion 2: Testeamos que se actualizara este producto

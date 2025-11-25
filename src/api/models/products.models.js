@@ -17,19 +17,19 @@ const insertProduct = (nombre, precio, tipo, ruta_img) => {
     return connection.query(sql, [nombre, precio, tipo, ruta_img])
 }
 
-const updateProduct = (nombre, ruta_img, precio, tipo, id_producto) => {
+const updateProduct = (nombre, ruta_img, precio, tipo, activo, id_producto) => {
     
     let sql = `
         UPDATE products
-        SET nombre = ?, ruta_img = ?, precio = ?, tipo = ?
+        SET nombre = ?, ruta_img = ?, precio = ?, tipo = ?, activo = ?
         WHERE id_producto = ?
     `;
 
-    return connection.query(sql, [nombre, ruta_img, precio, tipo, id_producto])
+    return connection.query(sql, [nombre, ruta_img, precio, tipo, activo, id_producto])
 }
 
 const deleteProduct = (id) => {
-    let sql = "UPDATE products set active = 0 WHERE id_producto = ?";
+    let sql = "UPDATE products set activo = 0 WHERE id_producto = ?";
 
     return connection.query(sql, [id])
 }

@@ -12,7 +12,7 @@ getProduct.addEventListener("submit", async(event) => {
 
     try {
         let response = await fetch(`${url}/api/products/${idProd}`);
-        let datos = response.json();
+        let datos = await response.json();
         if(response.ok) {
             let producto = datos.payload[0];
             if (producto) {
@@ -39,7 +39,7 @@ getProduct.addEventListener("submit", async(event) => {
 async function mostrarProducto(producto) {
     let htmlProducto = `
     <li class="">
-        <img class="producto-img" src="${producto.ruta_img}" alt="${producto.nombre}"
+        <img class="producto-img" src="${producto.ruta_img}" alt="${producto.nombre}">
         <p>Id: ${producto.id_producto} / Nombre: ${producto.nombre} / Precio: ${producto.precio} </p>
     </li>
     <li class="botonera">
@@ -53,7 +53,7 @@ async function mostrarProducto(producto) {
 
 async function eliminarProducto(id) {
     try {
-        let response = await fetch(`${url}/api/products/${idProd}`, {
+        let response = await fetch(`${url}/api/products/${id}`, {
             method: "DELETE"
         });
         let result = await response.json();
