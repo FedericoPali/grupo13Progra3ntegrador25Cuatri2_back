@@ -23,14 +23,15 @@ form.addEventListener("submit", async (event) => {
         console.log(datos);
         console.log(datos.message);
         
+        mostrarError(datos.message);
         
     }
 })
 
-async function mostrarProducto(producto) {
+function mostrarProducto(producto) {
     let htmlProducto = `
     <li class="">
-        <img class="producto-img" src="${producto.ruta_img}" alt="${producto.nombre}"
+        <img class="producto-img" src="${producto.ruta_img}" alt="${producto.nombre}">
         <p>Id: ${producto.id_producto} / Nombre: ${producto.nombre} / Precio: ${producto.precio} </p>
     </li>
     `;
@@ -39,11 +40,11 @@ async function mostrarProducto(producto) {
     
 }
 
-function mostrarError(error){
+function mostrarError(message){
     listaProducto.innerHTML = `
     <li class="mensaje-error">
         <p>
-            Error: ${error}
+            Error: ${message}
         </p>
     </li>
     `;
