@@ -2,41 +2,47 @@ import ProductModels from "../models/products.models.js";
 
 export const viewListado = async(req,res) =>{
     try{
-        const productos = await ProductModels.selectAllProducts();
+        const [rows] = await ProductModels.selectAllProducts();
 
-        //res.render() es un método de Express que se usa para renderizar (mostrar) una plantilla de vista y enviar el HTML resultante al navegador.
+        // res.render() es un método que se usa para mostrar una plantilla de vista y enviar el HTML al navegador.
         res.render("index", {
-            title: "Listado de productos",
-            products: productos[0]
+            title: "Inicio",
+            about: "Listado de productos",
+            productos: rows
         });
     } catch(error) {
-
+        console.error('Error al mostrar productos', error)
     }
 } 
 
+// Consultar producto
 export const viewConsultas = async(req,res) =>{
-    res.render("consultar",{
-        title:"Consultar productos segun id"
+    res.render("consultas",{
+        title:"Consultar",
+        about: "Consultar productos segun id",
     });
 };
 
-//RUTA DE VISTA CREAR PRODUCTO
+// Crear producto
 export const viewCrear = (req,res) =>{
     res.render("crear",{
-        title:"Crear productos"
+        title:"Crear",
+        about: "Crear Producto"
     });
 };
 
-//RUTA DE VISTA MODIFICAR PRODUCTO
+// Modificar producto
 export const viewModificar = (req,res) =>{
     res.render("modificar",{
-        title:"Modificar productos"
+        title:"Modificar",
+        about: "Modificar Producto"
     });
 };
 
-//RUTA DE VISTA ELIMINAR PRODUCTO
+// Eliminar producto
 export const viewEliminar = (req,res) =>{
     res.render("eliminar",{
-        title:"Eliminar productos"
+        title:"Eliminar",
+        about: "Dar de baja Producto"
     });
 };

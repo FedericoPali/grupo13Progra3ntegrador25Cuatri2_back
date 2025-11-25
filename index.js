@@ -34,6 +34,14 @@ app.use(loggerUrl); // utilizamos el middleware importado
 app.use(express.static(join(__dirname, "/src/public"))) // middleware para servir archivos
 
 
+// CONFIG
+
+// config ejs como motor de plantilla 
+
+app.set("view engine", "ejs");
+
+app.set("views", join(__dirname, "src/views")) // nuestras vistas de dashboard se sirven desde la carpeta views
+
 /* =================
     Rutas
 ==================*/
