@@ -1,4 +1,5 @@
 import connection from "../database/db.js";
+import salesModels from "../models/sales.models.js";
 
 export const createSale = async (req, res) => {
     const {nombre_usuario, precio_total, productos} = req.body;
@@ -10,9 +11,7 @@ export const createSale = async (req, res) => {
     }
 
     try{
-        const sqlVenta = "INSERT INTO ventas (nombre_usuario, fecha, precio_total) VALUES (?,NOW(),?)"
-
-        const [resultVenta] = await connection.query(sqlVenta, [nombre_usuario, precio_total])
+        const [resultVenta] = await salesModels.insertVenta(nombre_usuario, precio_total);
 
         const idVenta = resultVenta.insertId; // conseguimos el id de la venta para luego en la tabla ventas_productos meter cada producto con el id de la venta
         
@@ -22,9 +21,7 @@ export const createSale = async (req, res) => {
 
         const dataProductos = productos.map(prod => [idVenta, prod.id_producto, prod.cantidad]);
 
-        const sqlVentaProducto = "INSERT INTO ventas_productos (id_ventas, id_productos, cantidad) VALUES ?" // se pone solo un ? pq queremos insertar muchas filas a la vez
-
-        const [resultVentaProducto] = await connection.query(sqlVentaProducto, [dataProductos]);
+        const [resultVentaProducto] = await salesModels.insertVentaProducto(dataProductos);
 
         if(resultVentaProducto.affectedRows === 0 || resultVentaProducto.affectedRows !== productos.length){
             // en caso de que no se hayan podido insertar todos los productos vendidos hacemos un return avisandole al cliente
