@@ -1,23 +1,27 @@
-<header></header>
-    <nav>
+<header id="header-main">
+    <div class="logo-container">
+        <img src="img/logo.png" alt="Logo de NEO COMPUTE">
+    </div>
+    <h1>Admin Panel</h1>
+    <nav id="nav">
         <ul>
             <a href="/">
-                <li>Ver</li>
+                <li><span class="material-symbols-outlined">home</span></li>
             </a>
             <a href="/consultas">
-                <li>Consultar id</li>
+                <li><span class="material-symbols-outlined">search</span></li>
             </a>
             <a href="/crear">
-                <li>Crear</li>
+                <li><span class="material-symbols-outlined">add</span></li>
             </a>
             <a href="/modificar">
-                <li>Modificar</li>
+                <li><span class="material-symbols-outlined">edit</span></li>
             </a>
             <a href="/eliminar">
-                <li>Eliminar</li>
+                <li><span class="material-symbols-outlined">delete</span></li>
             </a>
         </ul>
     </nav>
 </header>
-<h1><%= about %></h1>
-<hr>
+<h2 style="text-align: center;"><%= about %></h2>
+<hr style="margin: 0 3% 0 3%;">

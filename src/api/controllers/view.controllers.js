@@ -19,7 +19,7 @@ export const viewListado = async(req,res) =>{
 export const viewConsultas = async(req,res) =>{
     res.render("consultas",{
         title:"Consultar",
-        about: "Consultar productos segun id",
+        about: "Consultar productos según id",
     });
 };
 
@@ -27,7 +27,7 @@ export const viewConsultas = async(req,res) =>{
 export const viewCrear = (req,res) =>{
     res.render("crear",{
         title:"Crear",
-        about: "Crear Producto"
+        about: "Crear nuevo producto"
     });
 };
 
@@ -35,7 +35,7 @@ export const viewCrear = (req,res) =>{
 export const viewModificar = (req,res) =>{
     res.render("modificar",{
         title:"Modificar",
-        about: "Modificar Producto"
+        about: "Modificar un producto"
     });
 };
 
@@ -43,6 +43,6 @@ export const viewModificar = (req,res) =>{
 export const viewEliminar = (req,res) =>{
     res.render("eliminar",{
         title:"Eliminar",
-        about: "Dar de baja Producto"
+        about: "Dar de baja un producto"
     });
 };

@@ -16,35 +16,42 @@ getProduct.addEventListener("submit", async(event) => {
         if(response.ok) {
             let producto = datos.payload[0];
             if (producto) {
-                mostrarProducto(producto);
-                let deleteBtn = document.getElementById("deleteBtn");
-                deleteBtn.addEventListener("click", event => {
-                    event.stopPropagation();
-                    let confirmacion = confirm("¿Quiere dar de baja el producto?");
-                    if (!confirmacion) {
-                        alert("Se canceló la eliminación del producto.");
-                    } else {
-                        eliminarProducto(producto.id_producto);
-                    }
-                })
+                if (producto.activo === 1) {
+                    mostrarProducto(producto);
+                    let deleteBtn = document.getElementById("deleteBtn");
+                    deleteBtn.addEventListener("click", event => {
+                        event.stopPropagation();
+                        let confirmacion = confirm("¿Quiere dar de baja el producto?");
+                        if (!confirmacion) {
+                            alert("Se canceló la eliminación del producto.");
+                        } else {
+                            eliminarProducto(producto.id_producto);
+                        }
+                    })
+                } else {
+                    mostrarError("El producto ya fue dado de baja")
+                }
             } else {
-                mostrarError("No se encontró un producto con ese ID ", idProd);
+                mostrarError("No se encontró un producto con ID", idProd);
             }
+        } else {
+            mostrarError(datos.message);
         }
     } catch (error) {
-        mostrarError(datos.message);
+        mostrarError("Ocurrió un error inesperado");
     }
 })
 
 async function mostrarProducto(producto) {
     let htmlProducto = `
-    <li class="">
-        <img class="producto-img" src="${producto.ruta_img}" alt="${producto.nombre}">
-        <p>Id: ${producto.id_producto} / Nombre: ${producto.nombre} / Precio: ${producto.precio} </p>
-    </li>
-    <li class="botonera">
-        <input type="button" id="deleteBtn" value="Eliminar producto">
-    </li>
+    <div class="card-producto">
+        <img src="${producto.ruta_img}" alt="${producto.nombre}">
+        <h3>${producto.nombre}</h3>
+        <p>${producto.tipo}</p>
+        <p>$${producto.precio}</p>
+        <p>ID: ${producto.id_producto}</p>
+    </div>
+    <input type="button" id="deleteBtn" value="Eliminar producto">
     `;
 
     listaProducto.innerHTML = htmlProducto;
@@ -71,10 +78,9 @@ async function eliminarProducto(id) {
 
 function mostrarError(message){
     listaProducto.innerHTML = `
-    <li class="mensaje-error">
-        <p>
-            Error: ${message}
-        </p>
-    </li>
+    <div class="mensaje-error">
+        <span class="material-symbols-outlined">error</span>
+        <p>${message}</p>
+    </div>
     `;
 }
