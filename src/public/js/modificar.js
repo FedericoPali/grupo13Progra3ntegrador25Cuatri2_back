@@ -5,13 +5,13 @@ const updateForm = document.getElementById("updateForm");
 const url = "http://localhost:3000";
 
 getProduct.addEventListener("submit", async(event) => {
-    event.preventDefault();
-    let formData = new FormData(event.target);
-    let data = Object.fromEntries(formData.entries());
-
-    let idProd = data.idProd;
-
     try {
+        event.preventDefault();
+        let formData = new FormData(event.target);
+        let data = Object.fromEntries(formData.entries());
+
+        let idProd = data.idProd;
+
         let response = await fetch(`${url}/api/products/${idProd}`);
         let datos =  await response.json();
         if(response.ok) {
@@ -24,26 +24,35 @@ getProduct.addEventListener("submit", async(event) => {
                     crearFormulario(producto);
                 })
             } else {
-                mostrarError("No se encontró un producto con ese ID ", idProd);
+                mostrarError("No se encontró un producto con ID", idProd);
             }
+        } else {
+            mostrarError(datos.message);
         }
     } catch (error) {
-        mostrarError(datos.message);
+        mostrarError("Ocurrió un error inesperado");
+        console.error(error);
     }
+    
 })
 
 async function mostrarProducto(producto) {
     let htmlProducto = `
-    <li class="">
-        <img class="producto-img" src="${producto.ruta_img}" alt="${producto.nombre}">
-        <p>Id: ${producto.id_producto} / Nombre: ${producto.nombre} / Precio: ${producto.precio} </p>
-    </li>
-    <li class="botonera">
-        <input type="button" id="updateBtn" value="Actualizar producto">
-    </li>
+    <div class="card-producto">
+        <img src="${producto.ruta_img}" alt="${producto.nombre}">
+        <h3>${producto.nombre}</h3>
+        <p>${producto.tipo}</p>
+        <p>$${producto.precio}</p>
+        <p>ID: ${producto.id_producto}</p>
+        <p class="producto_oculto" id="prod_oculto">INACTIVO</p>
+    </div>
+    <input type="button" id="updateBtn" value="Actualizar producto">
     `;
 
     listaProducto.innerHTML = htmlProducto;
+    if (producto.activo === 1) {
+        document.getElementById('prod_oculto').style.display = 'none';
+    }
     
 }
 
@@ -126,10 +135,9 @@ async function actualizarProducto(event) {
 
 function mostrarError(message){
     listaProducto.innerHTML = `
-    <li class="mensaje-error">
-        <p>
-            Error: ${message}
-        </p>
-    </li>
+    <div class="mensaje-error">
+        <span class="material-symbols-outlined">error</span>
+        <p>${message}</p>
+    </div>
     `;
 }

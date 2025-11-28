@@ -4,15 +4,46 @@
 <main>
     <section id="section-productos">
         <!-- iteracion del array de productos pasado desde el endpoint -->
-        <% productos.forEach(prod => { %>
-            <div class="card-producto">
-                <img class="producto-img"  src="<%= prod.ruta_img %>" alt="<%= prod.nombre %>">   
-                <h3><%= prod.nombre %></h3>
-                <p>ID: <%= prod.id_producto %></p>
-                <p>$<%= prod.precio %></p> 
-            </div>
-        <% }) %>
+        <div class="categorias-container">
+            <section class="categoria-columna">
+                <h2 class="categoria-titulo">Procesadores</h2>
+                <div id="procesadores-cards" class="cards-products">
+                    <% productos.forEach(prod => {
+                        if (prod.tipo === "procesador") { %>
+                        <div class="card-producto card-producto-procesadores">
+                            <img src="<%= prod.ruta_img %>" alt="<%= prod.nombre %>">
+                            <h3><%= prod.nombre %></h3>
+                            <p>$<%= prod.precio %></p>
+                            <p>ID: <%= prod.id_producto %></p>
+                            <% if (prod.activo === 0) { %>
+                                <p class="producto_oculto">INACTIVO</p>
+                            <% } %>
+                        </div>
+                        <% }
+                    }) %>
+                </div>
+            </section>
+            <section class="categoria-columna">
+                <h2 class="categoria-titulo">Placas de Video</h2>
+                <div id="graficas-cards" class="cards-products">
+                    <% productos.forEach(prod => {
+                        if (prod.tipo === "grafica") { %>
+                        <div class="card-producto card-producto-graficas">
+                            <img  src="<%= prod.ruta_img %>" alt="<%= prod.nombre %>">   
+                            <h3><%= prod.nombre %></h3>
+                            <p>$<%= prod.precio %></p>
+                            <p>ID: <%= prod.id_producto %></p> 
+                            <% if (prod.activo === 0) { %>
+                                <p class="producto_oculto">INACTIVO</p>
+                            <% } %>
+                        </div>
+                        <% }
+                    }) %>
+                </div>
+            </section>
+        </div>
     </section>
+
 </main>
 
 <%- include("partials/footer.ejs") %>
