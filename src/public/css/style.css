@@ -121,12 +121,6 @@ main {
     border: 1px solid #cc0000;
 }
 
-hr {
-  border: none;
-  height: 2px;
-  background-color: rgb(90, 90, 90);
-}
-
 /* ######### PRODUCTOS */
 
 .filtros button {
