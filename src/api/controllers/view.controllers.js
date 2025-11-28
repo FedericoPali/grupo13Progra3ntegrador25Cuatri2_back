@@ -46,3 +46,10 @@ export const viewEliminar = (req,res) =>{
         about: "Dar de baja un producto"
     });
 };
+
+// Login
+export const viewLogin =  async (req, res) => {
+    res.render("login", {
+        title: "Login",
+    })
+}

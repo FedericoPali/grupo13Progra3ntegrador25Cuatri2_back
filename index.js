@@ -23,6 +23,7 @@ import { __dirname, join } from "./src/api/utils/index.js";
 import session from "express-session";
 
 import bcrypt from "bcrypt";
+import connection from "./src/api/database/db.js";
 
 /* =================
     Middlewares
@@ -67,6 +68,76 @@ app.use("/api/sales", salesRoutes);
 app.use("/api/users", userRoutes)
 
 app.use("/", viewRoutes);
+
+app.post("/login", async (req,res) => {
+    try{
+
+        const {email, password} = req.body;
+
+        if(!email || !password){
+            return res.render("login", {
+                title: "Login",
+                error: "Todos los campos son necesarios"
+            });
+        }
+
+        const sql = "SELECT * FROM usuarios WHERE email = ?";
+        const [rows] = await connection.query(sql, [email]);
+
+        if(rows.length === 0){
+            return res.render("login", {
+                title: "Login",
+                error: "Error! Email o password no validos"
+            });
+        }
+
+        console.log(rows);
+        const user = rows[0];
+        console.table(user);
+
+        const match = await bcrypt.compare(password, user.password) // compara la contraseña normal introducida en el form con la contraseña hasheada en la bbdd
+        console.log(match); // boolean
+        
+
+        if(match){ // guardamos la sesion
+            req.session.user = {
+                id: user.id,
+                nombre: user.nombre,
+                email: user.email
+            }
+         return res.redirect("/"); // redirige a la seccion de productos
+        } else {
+            return res.render("login",{
+                title: "Login",
+                error: "Contraseña incorrecta"
+            })
+        }
+        
+        
+    } catch (error) {
+        console.log("Error en el login: ", error);
+
+        res.status(500).json({
+            error: "Error interno del servidor"
+        })
+        
+    }
+})
+
+app.post("/logout", async (req,res) => {
+    req.session.destroy((error) => {
+        if(error){
+            console.log("Ocurrio un error al intentar destruir la sesion: ", error);
+
+            return res.status(500).json({
+                error: "Error al cerrar sesion"
+            });
+
+        }
+        res.redirect("/login");
+            
+    })
+})
 
 app.listen(PORT, () =>{
     console.log(`Servidor corriendo en el puerto ${PORT}`)
