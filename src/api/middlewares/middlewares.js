@@ -27,7 +27,16 @@ const validateId = (req, res, next) => {
     next();
 }
 
+// protege las vistas del dashboard en caso de que no se haya hecho acceso a traves del login
+const requireLogin = (req,res,next) => {
+    if(!req.session.user){ // verificamos si existe la sesion de usuario, caso contrario redirige al login
+        return res.redirect("/login");
+    }
+    next(); // sin next, la peticion nunca llega a la respuesta (res)
+}
+
 export {
     loggerUrl,
-    validateId
+    validateId,
+    requireLogin
 }
