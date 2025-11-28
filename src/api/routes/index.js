@@ -2,11 +2,14 @@
 import productRoutes from "./product.routes.js";
 import salesRoutes from "./sales.routes.js";
 import viewRoutes from "./views.routes.js";
+import userRoutes from "./user.routes.js";
+
 
 // archivo de barril que contiene y centraliza todas las rutas
 
 export {
     productRoutes,
     salesRoutes,
-    viewRoutes
+    viewRoutes,
+    userRoutes
 }
