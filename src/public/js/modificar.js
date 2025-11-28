@@ -18,6 +18,7 @@ getProduct.addEventListener("submit", async(event) => {
             let producto = datos.payload[0];
             if (producto) {
                 mostrarProducto(producto);
+                updateForm.innerHTML = "";
                 let updateBtn = document.getElementById("updateBtn");
                 updateBtn.addEventListener("click", event => {
                     event.stopPropagation();
