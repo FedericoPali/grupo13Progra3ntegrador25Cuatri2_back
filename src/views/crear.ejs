@@ -1,27 +1,49 @@
 <%- include("partials/head.ejs") %>
 <%- include("partials/nav.ejs") %>
 <main>
-    <form id="createProduct-form">
-        <label for="nombreProd">Nombre</label>
-        <input type="text" name="nombre" id="nombreProd" required>
+    <div id="product-container">
+        <form id="createProduct-form">
+            <label for="nombreProd">Nombre</label>
+            <input type="text" name="nombre" id="nombreProd" required>
 
-        <label for="imagenProd">Imagen</label>
-        <input type="text" name="ruta_img" id="imagenProd" required>
+            <label for="imagenProd">Imagen</label>
+            <input type="text" name="ruta_img" id="imagenProd" required>
 
-        <label for="precioProd">Precio</label>
-        <input type="number" name="precio" id="precioProd" required>
+            <label for="precioProd">Precio</label>
+            <input type="number" name="precio" id="precioProd" required>
 
-        <label for="categoriaProd">Categoria</label>
-        <select name="tipo" id="categoriaProd" required>
-            <option value="grafica">Placa de video</option>
-            <option value="procesador">Procesador</option>
-        </select>
+            <label for="categoriaProd">Categoria</label>
+            <select name="tipo" id="categoriaProd" required>
+                <option value="grafica">Placa de video</option>
+                <option value="procesador">Procesador</option>
+            </select>
 
-        <input type="submit" value="Crear Producto">
-    </form>
+            <input type="submit" value="Crear Producto">
+        </form>
+    </div>
+
+    <!-- <hr style="margin: 0 3% 0 3%;"> -->
+    <h2 style="text-align: center; border-bottom: 1px solid #ccc; width: 100%;">Alta Usuario</h2>
+
+    <div id="user-container">
+        <form id="createUser-form">
+            <label for="nombreUser">Nombre</label>
+            <input type="text" name="nombre" id="nombreUser" required>
+
+            <label for="emailUser">Email</label>
+            <input type="text" name="email" id="emailUser" required>
+
+            <label for="passwordUser">Password</label>
+            <input type="password" name="password" id="passwordUser" required>
+
+            <input type="submit" value="Crear Usuario">
+        </form>
+    </div>
+
     <section id="section_product">
         <div id="listaProducto"></div>
     </section>
+
 </main>
 <script src="js/crear.js"></script>
 <%- include("partials/footer.ejs") %>
