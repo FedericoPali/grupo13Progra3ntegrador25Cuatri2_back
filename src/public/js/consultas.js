@@ -37,13 +37,17 @@ form.addEventListener("submit", async (event) => {
 
 function mostrarProducto(producto) {
     let htmlProducto = `
-    <div class="card-producto">
+    <div class="card-producto mostrar-producto">
         <img src="${producto.ruta_img}" alt="${producto.nombre}">
-        <h3>${producto.nombre}</h3>
-        <p>${producto.tipo}</p>
-        <p>$${producto.precio}</p>
-        <p>ID: ${producto.id_producto}</p>
-        <p class="producto_oculto" id="prod_oculto">INACTIVO</p>
+        <div>
+            <h3>${producto.nombre}</h3>
+            <div style="display: flex; justify-content: space-between; padding: 0 5px 0 5px;">
+                <p>Tipo: <span style="text-transform: capitalize;">${producto.tipo}</span></p>
+                <p>Precio: $${producto.precio}</p>
+            </div>
+            <p>ID: ${producto.id_producto}</p>
+            <p class="producto_oculto" id="prod_oculto">INACTIVO</p>
+        </div>
     </div>`;
 
     listaProducto.innerHTML = htmlProducto;

@@ -5,28 +5,38 @@
     <h1>Admin Panel</h1>
     <nav id="nav">
         <ul>
-            <a href="/">
-                <li><span class="material-symbols-outlined">home</span></li>
-            </a>
-            <a href="/consultas">
-                <li><span class="material-symbols-outlined">search</span></li>
-            </a>
-            <a href="/crear">
-                <li><span class="material-symbols-outlined">add</span></li>
-            </a>
-            <a href="/modificar">
-                <li><span class="material-symbols-outlined">edit</span></li>
-            </a>
-            <a href="/eliminar">
-                <li><span class="material-symbols-outlined">delete</span></li>
-            </a>
+            <li>
+                <a href="/">
+                    <span class="material-symbols-outlined">home</span>
+                </a>
+            </li>
+            <li>
+                <a href="/consultas">
+                    <span class="material-symbols-outlined">search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/crear">
+                    <span class="material-symbols-outlined">add</span>
+                </a>
+            </li>
+            <li>
+                <a href="/modificar">
+                    <span class="material-symbols-outlined">edit</span>
+                </a>
+            </li>
+            <li>
+                <a href="/eliminar">
+                    <span class="material-symbols-outlined">delete</span>
+                </a>
+            </li>
+            <li style="display: flex; justify-content: center; align-items: center;">
+                <form class="form-logout" action="/logout" method="POST">
+                    <button type="submit" class="logout-btn">
+                        <span class="material-symbols-outlined">logout</span>
+                    </button>
+                </form>
+            </li>
         </ul>
     </nav>
-
-    <form action="/logout" id="logout" method="POST">
-        <input type="submit" value="Cerrar Sesion">
-    </form>
-
 </header>
-<h2 style="text-align: center; border-bottom: 1px solid #ccc; width: 100%"><%= about %></h2>
-<!-- <hr style="margin: 0 3% 0 3%;"> -->

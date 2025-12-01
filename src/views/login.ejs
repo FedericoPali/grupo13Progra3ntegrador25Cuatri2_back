@@ -1,23 +1,26 @@
 <%- include("partials/head.ejs") %>
 
-<% if (typeof error !== "undefined") {%>
-    <div class="error-message">
-        <%= error %>
-    </div>
-<% } %>
 
-    <main>
-        <form action="/login" method="POST" autocomplete="off" id="login-form">
-            <label for="emailUser">Email</label>
-            <input type="email" name="email" id="emailUser" required>
 
-            <label for="passwordUser">Password</label>
-            <input type="password" name="password" id="passwordUser" required>
+<main>
+    <img src="img/logo_login.png" alt="Logo de NEO COMPUTE">
+    <form action="/login" method="POST" autocomplete="off" id="login-form">
+        <label for="emailUser">Correo Electrónico</label>
+        <input type="email" name="email" id="emailUser" required>
 
-            <input type="submit" value="Iniciar Sesion">
-            <input type="button" id="acceso-rapido" value="Acceso Rapido">
-        </form>
-    </main>
+        <label for="passwordUser">Contraseña</label>
+        <input type="password" name="password" id="passwordUser" required>
+
+        <input type="submit" value="Iniciar Sesión">
+        <input type="button" id="acceso-rapido" value="Acceso Rápido">
+    </form>
+    <% if (typeof error !== "undefined") {%>
+        <div class="mensaje-error">
+            <span class="material-symbols-outlined">error</span>
+            <%= error %>
+        </div>
+    <% } %> 
+</main>
 
 <script src="js/login.js"></script>
 <%- include("partials/footer.ejs") %>

@@ -77,7 +77,7 @@ app.post("/login", async (req,res) => {
         if(!email || !password){
             return res.render("login", {
                 title: "Login",
-                error: "Todos los campos son necesarios"
+                error: "Todos los campos son necesarios."
             });
         }
 
@@ -87,7 +87,7 @@ app.post("/login", async (req,res) => {
         if(rows.length === 0){
             return res.render("login", {
                 title: "Login",
-                error: "Error! Email o password no validos"
+                error: "Acceso inválido. Por favor, inténtelo otra vez."
             });
         }
 
@@ -109,7 +109,7 @@ app.post("/login", async (req,res) => {
         } else {
             return res.render("login",{
                 title: "Login",
-                error: "Contraseña incorrecta"
+                error: "Acceso inválido. Por favor, inténtelo otra vez."
             })
         }
         
@@ -128,14 +128,11 @@ app.post("/logout", async (req,res) => {
     req.session.destroy((error) => {
         if(error){
             console.log("Ocurrio un error al intentar destruir la sesion: ", error);
-
             return res.status(500).json({
                 error: "Error al cerrar sesion"
             });
-
         }
         res.redirect("/login");
-            
     })
 })
 
